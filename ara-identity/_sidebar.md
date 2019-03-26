@@ -1,0 +1,8 @@
+* [Getting Started](getting-started.md)
+  * [Installation](getting-started.md#installation)
+  * [Creating An Identity](getting-started.md#creating-identity)
+    * [Decentralized Identifier](getting-started.md#decentralized-identifier)
+    * [Identity Mnemonic](getting-started.md#identity-mnemonic)
+    * [Identity Files](getting-started.md#identity-files)
+  * [ddo.json](getting-started.md#ddo)
+  * [Resolving An Identity](getting-started.md#resolve-identity)
