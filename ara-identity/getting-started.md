@@ -1,4 +1,4 @@
-# # Getting Started with _Ara Identity_
+# Getting Started with _Ara Identity_
 
 **Ara Identity** is a decentralized identity tool set and implementation of
 _[Decentralized Identifiers][did-spec]_. It is used to identifty users,
@@ -28,7 +28,7 @@ In this guide we will walk through the following:
 * [Decentralized Identifier Document Objects - ddo.json](#ddo)
 * [Resolving An Identity](#resolve-identity)
 
-## ## Installing Ara Identity Command Line Tools :id=installation
+## Installing Ara Identity Command Line Tools :id=installation
 
 > [!TIP|label: Prerequisites | className: warning]
 > The Ara Identity command line tools are written in
@@ -68,7 +68,7 @@ Commands:
 ... (output truncated)
 ```
 
-## ## Creating An Ara Identity :id=create-identity
+## Creating An Ara Identity :id=create-identity
 
 Creating an identity is as simple as running the `aid create` command
 with no arguments. You will be prompted for a _passphrase_. This passphrase
@@ -108,7 +108,7 @@ Provide a passphrase and press enter. You should see the following output:
 A lot of things just happened here, and we'll cover them all, but most
 importantly there is some information that you should capture and save.
 
-### ### Decentralized Identifier :id=decentralized-identifier
+### Decentralized Identifier :id=decentralized-identifier
 
 When creating an identity, a new globally unique **decentralized identifier**
 is created.
@@ -132,18 +132,20 @@ the URI. The _DID identifier_ after the `did:ara:` is a Ed25519 public
 key. It has a corresponding secret key that can be used to authenticate the
 identity.
 
-### ### Identity Mnemonic :id=identity-mnemonic
+### Identity Mnemonic :id=identity-mnemonic
+
+> [!TIP|label: Important | className: warning]
+> This mnemonic is shown to you _only_ _**one**_ time. 
 
 During the creation of an identity, a [BIP39 mnemonic phrase][bip39] is
 generated and used as the seed or _initialization vector_ for the
-generation of your identity _Ed25519 key pair_. This phrase is given to
-you one time. It should be written down in the order they appear as it is used
-to _recover_ or _revoke_ your identity.
+generation of your identity _Ed25519 key pair_. It should be written down in the order 
+they appear as it is used to _recover_ or _revoke_ your identity.
 
 > [!note| label: Your BIP39 Mnemonic | iconVisibility: hidden]
 > `general grab rent solar lift sudden industry wait beach flame impose high`
 
-### ### Identity Files :id=identity-files
+### Identity Files :id=identity-files
 
 After creating your identity the `aid create` command will save a set of
 files to your file system. By default, they will be stored in the
@@ -171,13 +173,13 @@ Filename       | Purpose
 `schema.proto` | A protocol buffer describing the binary layout of the `identity` file
 `identity`     | A binary blob containing the entire state of the identity, including the file listed here (See [schema.proto][schema.proto])
 
-## ## Decentralized Identifier Document Object - `ddo.json` :id=ddo
+## Decentralized Identifier Document Object - `ddo.json` :id=ddo
 
 A _Decentralized Identifier Document Object_, or _DDO_ is a JSON object
 structure that represents the state of the identity, including public
 keys, authentication schemes, and service end points. The _DDO_ state is
 captured and stored in a file called `ddo.json` It is signed with the
-secret key the controlled by the identity. This document object is
+secret key that is controlled by the identity. This document object is
 updated every time a public key, authentication scheme, or service end
 point is added. Revoking and recovering identities updates or restores
 a _DDO_ state.
@@ -270,7 +272,7 @@ Initially, the `ddo.json` file contains an **owner** public key, and an
 the key associated with the owner of the _DDO_. The public key hex value is
 equivalent to the identifier part of the DID URI.
 
-## ## Resolving An Identity :id=resolve-identity
+## Resolving An Identity :id=resolve-identity
 
 > TODO
 
