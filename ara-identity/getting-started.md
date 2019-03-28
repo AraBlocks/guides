@@ -134,11 +134,13 @@ identity.
 
 ### ### Identity Mnemonic :id=identity-mnemonic
 
+> [!TIP|label: Important | className: warning]
+> This mnemonic is shown to you _only_ _**one**_ time.
+
 During the creation of an identity, a [BIP39 mnemonic phrase][bip39] is
 generated and used as the seed or _initialization vector_ for the
-generation of your identity _Ed25519 key pair_. This phrase is given to
-you one time. It should be written down in the order they appear as it is used
-to _recover_ or _revoke_ your identity.
+generation of your identity _Ed25519 key pair_. It should be written down in the order
+they appear as it is used to _recover_ or _revoke_ your identity.
 
 > [!note| label: Your BIP39 Mnemonic | iconVisibility: hidden]
 > `general grab rent solar lift sudden industry wait beach flame impose high`
@@ -177,7 +179,7 @@ A _Decentralized Identifier Document Object_, or _DDO_ is a JSON object
 structure that represents the state of the identity, including public
 keys, authentication schemes, and service end points. The _DDO_ state is
 captured and stored in a file called `ddo.json` It is signed with the
-secret key the controlled by the identity. This document object is
+secret key that is controlled by the identity. This document object is
 updated every time a public key, authentication scheme, or service end
 point is added. Revoking and recovering identities updates or restores
 a _DDO_ state.
