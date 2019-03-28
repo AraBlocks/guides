@@ -167,7 +167,7 @@ generated and used as the seed or _initialization vector_ for the
 generation of your identity _Ed25519 key pair_. It should be written down in the order
 they appear as it is used to _recover_ or _revoke_ your identity.
 
-> [!note |label: Your BIP39 Mnemonic |iconVisibility: hidden]
+> [!note|label: Your BIP39 Mnemonic |iconVisibility: hidden]
 > `general grab rent solar lift sudden industry wait beach flame impose high`
 
 ### ### Identity Files :id=identity-files
