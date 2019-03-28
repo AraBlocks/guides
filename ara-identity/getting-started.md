@@ -30,14 +30,39 @@ In this guide we will walk through the following:
 
 ## ## Installing Ara Identity Command Line Tools :id=installation
 
-> [!TIP|label: Prerequisites | className: warning]
+> [!tip| label: Prerequisites | className: warning]
 > The Ara Identity command line tools are written in
 [**JavaScript**](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 and run on [**Node.js**](https://nodejs.org). Please make sure you have
 `node` (and `npm`) installed before continuing.
 
-_**Ara Identity**_ ships with a command line utility called **`aid`**. The
-**`aid`** command can be installed with `npm` by running the following
+_**Ara Identity**_ ships with a command line utility called **`aid`**.
+
+### ### Download Pre-built Binary
+
+The **`aid`** command can be installed by downloading and unzipping the
+pre-built package and running the `install.sh` script.
+
+See [_Ara Identity Latest
+Releases_](https://github.com/AraBlocks/ara-identity/releases/latest) to
+download a pre-built binary for your operating system.
+
+> [!note|label: ]
+> **Linux** and **macOS** are currently only supported
+
+#### #### PATH
+
+You should be sure to update your `PATH` to include `$HOME/.ara/bin` as
+this is where the `aid` command will be installed.
+
+##### See Also
+
+* [How to permanently set $PATH on Linux/Unix?](https://stackoverflow.com/questions/14637979/how-to-permanently-set-path-on-linux-unix)
+* [Mac OS X: Set / Change $PATH Variable](https://www.cyberciti.biz/faq/appleosx-bash-unix-change-set-path-environment-variable/)
+
+### ## Installation from NPM
+
+The **`aid`** command can be installed with `npm` by running the following
 command
 
 ```sh
@@ -113,7 +138,7 @@ importantly there is some information that you should capture and save.
 When creating an identity, a new globally unique **decentralized identifier**
 is created.
 
-> [!note| label: Your Decentralized Identifier| iconVisibility: hidden]
+> [!note|label: Your Decentralized Identifier|iconVisibility: hidden]
 > `did:ara:53a86c543fd91f98a133e91f3275e4ba74d2971f7245a0b572bf15718bb4c97f`
 
 The **decentralized identifier** of the identity (`did:ara:53a86..f`) is your
@@ -134,7 +159,7 @@ identity.
 
 ### ### Identity Mnemonic :id=identity-mnemonic
 
-> [!TIP|label: Important | className: warning]
+> [!tip|label: Important |className: warning]
 > This mnemonic is shown to you _only_ _**one**_ time.
 
 During the creation of an identity, a [BIP39 mnemonic phrase][bip39] is
@@ -142,7 +167,7 @@ generated and used as the seed or _initialization vector_ for the
 generation of your identity _Ed25519 key pair_. It should be written down in the order
 they appear as it is used to _recover_ or _revoke_ your identity.
 
-> [!note| label: Your BIP39 Mnemonic | iconVisibility: hidden]
+> [!note |label: Your BIP39 Mnemonic |iconVisibility: hidden]
 > `general grab rent solar lift sudden industry wait beach flame impose high`
 
 ### ### Identity Files :id=identity-files
@@ -151,7 +176,7 @@ After creating your identity the `aid create` command will save a set of
 files to your file system. By default, they will be stored in the
 `~/.ara/identities` directory.
 
-> [!note| label: Your Decentralized Identifier| iconVisibility: hidden]
+> [!note|label: Your Decentralized Identifier|iconVisibility: hidden]
 > The directory for the identity with the
 `did:ara:53a86...f` URI is stored in
 `~/.ara/identities/65c0666f58ac7f304a4cb2f5b700dbb46f5e64ada8e00f94906428864ee4cafb`
@@ -274,8 +299,47 @@ equivalent to the identifier part of the DID URI.
 
 ## ## Resolving An Identity :id=resolve-identity
 
-> TODO
+Identity resolution is how we can convert an Ara _DID_ into an Ara
+_DDO_. This is done by running the `aid resolve` command with a _DID
+URI_ as an argument.
 
+```sh
+$ aid resolve did:ara:53a86c543fd91f98a133e91f3275e4ba74d2971f7245a0b572bf15718bb4c97f
+```
+
+The output of this command should be the [Decentralized Identifier Document
+Object](#ddo), or _DDO_, associated with the _DID_. This can be checked by
+comparing the `id` property in the document to the given DID.
+
+> [!tip|label: DDO 'id' property]
+> Compare the DID `did:ara:53a86...f` to the `id` property found in the
+> associated DDO ensuring the DDO belongs to the DID.
+> ```
+{
+  ...
+  "id": "did:ara:53a86c543fd91f98a133e91f3275e4ba74d2971f7245a0b572bf15718bb4c97f",
+  ...
+}
+```
+
+> [!tip| label: Integrity | className: warning]
+> Comparing a DID to the DDO's `id` property does not mean the document has
+> not been tampered with. The `signatureValue` on a DDO's `proof`
+> object provides integrity and autheticates the document for the identity.
+> ```
+{
+ ...
+  "proof": {
+    "type": "Ed25519VerificationKey2018",
+    "nonce": "b88891f9a8b9fe9923d65ca2e53252a11a70aedd0eb5a0abeffb9ecec098f0d7",
+    "domain": "ara",
+    "created": "2019-03-26T19:22:45.270Z",
+    "creator": "did:ara:53a86c543fd91f98a133e91f3275e4ba74d2971f7245a0b572bf15718bb4c97f#owner",
+    "signatureValue": "c7e19cea191d1a2ece4fc12be629217804d228977ac2eae4a975af6a57fd31909abf00ea1a27629eb6a66cb60d2df14eaaf067f40f691071e43b145d5201440f"
+  }
+ ...
+}
+```
 
 [ara-one]: https://ara.one
 [bip39]: https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki
