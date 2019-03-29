@@ -27,6 +27,8 @@ In this guide we will walk through the following:
   * [Identity Files](#identity-files)
 * [Decentralized Identifier Document Objects - ddo.json](#ddo)
 * [Resolving An Identity](#resolve-identity)
+* [Archiving An Identity](#archive-identity)
+* [Sharing An Identity](#share-identity)
 
 ## ## Installing Ara Identity Command Line Tools :id=installation
 
@@ -340,6 +342,94 @@ comparing the `id` property in the document to the given DID.
  ...
 }
 ```
+
+## ## Archiving An Identity :id=archive-identity
+
+Archiving an identity writes your [identity files](#identity-files) to a
+[DAT](https://datproject.org/) archive stored locally on your file
+system. This archive can be used to broadcast your identity to a network
+or share it with an always on [Ara Identity
+Archiver Server](https://github.com/arablocks/ara-identity-archiver/) that
+broadcasts your identity for you.
+
+Archiving to an _Archiver Server_ is out of scope for this guide, so
+we'll focus on a local archive.
+
+After creating or updating your identity, you should archive it to
+ensure your local archive is up to date. This is done by running `aid
+archive --local` with your _DID URI_ as the only argument. You will be
+prompted for the _passphrase_ you created for this identity.
+
+```sh
+$ aid archive --local did:ara:53a86c543fd91f98a133e91f3275e4ba74d2971f7245a0b572bf15718bb4c97f
+? Please provide a passphrase for your identity. This is needed to archive your identity.
+Passphrase: [hidden]
+ ara: info:  Successfully archived identity to local system
+```
+
+In another post we'll walk through archiving an identity to an external
+server that will broadcast it out to the Internet. Always on identity
+may be useful to you if you need others to access your _DDO_ and verify
+your identity or if you want to backup your files somewhere you _trust_.
+
+## Sharing An Identity :id=share-identity
+
+Sometimes you may want to share an identity without with an interested
+party. The `aid` command makes this possible by running `aid share` with
+your _DID URI_ as the only argument.
+
+Sharing your identity makes your _DID_ accessible through resolution and
+also available on the DAT network (see
+[runtime configuration](/ara-runtime-configuration/discovery) for configuring DNS
+and DHT discovery servers).
+
+```sh
+$ aid share did:ara:53a86c543fd91f98a133e91f3275e4ba74d2971f7245a0b572bf15718bb4c97f
+ ara: info:  Broadcasting and sharing did:ara:53a86c543fd91f98a133e91f3275e4ba74d2971f7245a0b572bf15718bb4c97f
+```
+
+On another terminal you can resolve the identity with `aid resolve --no-cache`,
+which will skip reads from the file system for your identity and go
+straight to the network to resolve it.
+
+```sh
+$ aid resolve --no-cache did:ara:53a86c543fd91f98a133e91f3275e4ba74d2971f7245a0b572bf15718bb4c97f
+```
+
+You can also use the `dat clone` command to check out a copy of the
+archive to disk because the identifier of the DID URI is the same public
+key used in the DAT network! If you run `dat clone` with the DID URI
+identifier as the only argument, DAT will clone the archive and write
+the files to disk in a directory named with your identifier.
+
+```sh
+$ dat clone 53a86c543fd91f98a133e91f3275e4ba74d2971f7245a0b572bf15718bb4c97f
+dat v13.11.5
+Created new dat in
+/home/werle/dats/53a86c543fd91f98a133e91f3275e4ba74d2971f7245a0b572bf15718bb4c97f/.dat
+Cloning: 5 files (9.8 KB)
+
+1 connection | Download 3.7 KB/s Upload 0 B/s
+
+dat sync complete.
+Version 54
+
+
+Exiting the Dat program...
+```
+
+We can verify the contents of the archive by listing the directory.
+
+```sh
+$ ls ./53a86c543fd91f98a133e91f3275e4ba74d2971f7245a0b572bf15718bb4c97f/
+ddo.json  identity  keystore  schema.proto
+```
+
+The identity files broadcasting over the DAT network make it
+compatible with applications like [Beaker
+Browser](https://beakerbrowser.com) bringing your identity to the web
+with out any extra work.
+
 
 [ara-one]: https://ara.one
 [bip39]: https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki
