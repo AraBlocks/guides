@@ -1,0 +1,23 @@
+{
+  "name": "guides",
+  "version": "1.0.0",
+  "description": "Ara User Guides ===============",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "budo --live --port 3000 --base /guides --dir ../"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arablocks/guides.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arablocks/guides/issues"
+  },
+  "homepage": "https://github.com/arablocks/guides#readme",
+  "dependencies": {
+    "budo": "^11.6.1"
+  }
+}
